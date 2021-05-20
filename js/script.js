@@ -6,7 +6,8 @@ mainAudio = wrapper.querySelector("#main-audio"),
 playPauseBtn = wrapper.querySelector(".play-pause"),
 prevBtn = wrapper.querySelector("#prev"),
 nextBtn = wrapper.querySelector("#next"),
-progressBar = wrapper.querySelector(".progress-bar");
+progressBar = wrapper.querySelector(".progress-bar"),
+progressArea = wrapper.querySelector(".progress-area");
 
 let musicIndex = 4;
 
@@ -90,3 +91,12 @@ mainAudio.addEventListener("timeupdate", (e) => {
   }
   musicCurrentTime.innerText = `${currentMin}:${currentSec}`;
 });
+
+// click on progress bar to update currentTime
+progressArea.addEventListener("click", (e) => {
+  let progressWidthVal = progressArea.clientWidth; // getting width of progress bar
+  let clickedOffSetX = e.offsetX; // getting offset x value
+  let songDuration = mainAudio.duration;
+
+  mainAudio.currentTime = (clickedOffSetX / progressWidthVal) * songDuration;
+})
